@@ -8,7 +8,7 @@ from scipy.signal import find_peaks
 from main.data_SmartGait_01.utils import preprocessing as preProc
 
 # In[] Initialize the primary variables
-_gait_phase = "MidSwing"   # change the _gait_phase variable to either FootOff or FootContact to load and run dataset and model, for FootOff or FootContact, respectively.
+_gait_phase = "MidSwing"   # change the value of _gait_phase variable to either FootOff or FootContact to load and run dataset and model, for FootOff or FootContact, respectively.
 _dataset_address = f"main//data_SmartGait_01//datasets//{_gait_phase}//example_data.pkl"
 _model_address = f"main//data_SmartGait_01//models//{_gait_phase}//mobilenet"
 
