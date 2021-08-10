@@ -24,7 +24,6 @@ ncolumns_X = len(columns_X)
 ncolumns_y = len(columns_y)
 LSTM_window_left = 125
 LSTM_window_right = 125
-LSTM_windows_size = LSTM_window_left + LSTM_window_right + 1
 
 # In[] Initializing the train set
 validation_set_X = db_validation[:, columns_X]
@@ -49,7 +48,7 @@ with strategy.scope():
     ## Prediction
     time_start = datetime.now()
     print(f"Prediction startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
-    predicted_peaks = model.predict(X_validation_total, verbose=1)
+    predicted_peaks = model.predict(X_validation_total, verbose=2)
     predicted_peaks = np.vstack((np.zeros((LSTM_window_left, 1)), predicted_peaks, np.zeros((LSTM_window_right, 1))))
     y_validation_corrected = np.concatenate((np.zeros((LSTM_window_left, 1)), y_validation.reshape(-1, 1),  np.zeros((LSTM_window_right, 1))))
     time_end = datetime.now()
@@ -60,7 +59,7 @@ with strategy.scope():
     ## Evaluation
     time_start = datetime.now()
     print(f"Evaluation startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
-    score = model.evaluate(x=X_validation_total, y=y_validation, verbose=1)
+    score = model.evaluate(x=X_validation_total, y=y_validation, verbose=2)
     time_end = datetime.now()
     print(f"Evaluation finished at: {time_end.strftime('%Y-%m-%d, %H:%M:%S')}")
     time_duration = time_end - time_start
@@ -99,7 +98,7 @@ for ii, ival in enumerate(signal_peaks):
 _no_of_events = len(y_validation_corrected[y_validation_corrected == 1])
 _no_of_events_predicted = len(signal_peaks[signal_peaks == 1])
 
-print(f"No. of sample frames for validation set {len(validation_set_X)}")
+print(f"No. of sample frames for validation dataset: {len(validation_set_X)}")
 print(f"{_gait_phase} labeled: {_no_of_events}")
 print(f"{_gait_phase} predicted: {_no_of_events_predicted}")
 

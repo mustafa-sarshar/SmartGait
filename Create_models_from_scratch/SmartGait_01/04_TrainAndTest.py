@@ -6,7 +6,7 @@ Train and Test the model
     - Fit the model
 """
 # In[] Import the libraries
-import pickle, time, os, tensorflow
+import pickle, time, os, tensorflow, sys
 from utils import preprocessing as preProc 
 from utils import lstm_model
 
@@ -18,7 +18,6 @@ ncolumns_X = len(columns_X)
 ncolumns_y = len(columns_y)
 LSTM_window_left = 125
 LSTM_window_right = 125
-LSTM_windows_size = LSTM_window_left + LSTM_window_right + 1
 
 # In[] Import the dataset (Train set)
 address = f"datasets//train_dataset//train_dataset_{_feature_label}.pkl"
@@ -78,9 +77,11 @@ with strategy.scope():
 
 # In[] Create a new sub-directory based on the name of the labeld feature in the models directory
 try:    
-    os.mkdir(path=f"models//{_feature_label}")  
+    os.mkdir(path=f"models//{_feature_label}")
 except ValueError:
     print(f"An exception occurred: {ValueError}")
+except:
+    print("Unexpected error:", sys.exc_info()[0])
 
 # In[] Save the Model in the folder models
     
