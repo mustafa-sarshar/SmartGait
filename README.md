@@ -1,5 +1,5 @@
 # SmartGait
-Gait Phase Estimation by using Artificial Intelligence
+Gait Phase Estimation by employing Artificial Intelligence
 
 This project aims to pave the way in IMU-based gait phase estimation by employing the state-of-the-art technology, in particular deep learning algorithms.
 
