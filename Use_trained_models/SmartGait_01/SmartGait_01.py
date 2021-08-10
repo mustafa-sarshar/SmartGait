@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 from scipy.signal import find_peaks
-from main.data_SmartGait_01.utils import preprocessing as preProc
+from main.utils import preprocessing as preProc
 
 # In[] Initialize the primary variables
 _gait_phase = "MidSwing"   # change the value of _gait_phase variable to either FootOff or FootContact to load and run dataset and model, for FootOff or FootContact, respectively.
