@@ -3,7 +3,7 @@ Gait Phase Estimation by employing Artificial Intelligence
 
 This project aims to pave the way for the development of IMU-based gait phase estimation by employing the state-of-the-art technology, in particular deep learning algorithms.
 
-The repository consists of:
+This repository consists of:
 1) Trained models, please check use_trained_models directory.
 2) Create_models_from_scratch, for those who would like to create these models on their own.
 
