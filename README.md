@@ -10,6 +10,8 @@ This repository consists of:
 Moreover, the project will grow itselft step-by-step, therefore more trained models will be presented in this repo in the future.
 At this moment, the first SmartGait model, "SmartGait_01" is already trained by using data from only two individuals, which is still not a completed trained model for production, however, it is a proof of our concept in using LSTM algorithm to estimate three main gait phases, MidSwing, FootOff and FootContact.
 
+### Install Python
+*) For this Repo the Python version 3.9.6 was used. Please download Python from: https://www.python.org/downloads/
 ### Create a virtual environment for this project as follows:
 #### Create a new virtual environment by choosing a Python interpreter and making a .\venv directory to hold it:
 1) python -m venv .\venv
