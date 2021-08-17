@@ -111,7 +111,7 @@ plt.plot(validation_set_X[:, [2]], label = "rotMatMag", linewidth=1, linestyle="
 plt.plot(2*y_validation_corrected[:], label = f"Real peaks {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
 plt.plot(signal_peaks, label = f"Predicted Peaks (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
 
-plt.title(f"Peaks Prediction, {_no_of_events_predicted} {_gait_phase}(s) detected!")
+plt.title(f"Peaks Prediction, {_no_of_phases_predicted} {_gait_phase}(s) detected!")
 plt.xlabel("Time Frame")
 plt.ylabel("Peaks / Amplitude / Probability%")
 plt.legend(loc="upper left")
