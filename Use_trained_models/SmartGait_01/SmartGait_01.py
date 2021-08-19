@@ -48,9 +48,9 @@ with strategy.scope():
     ## Prediction
     time_start = datetime.now()
     print(f"Prediction startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
-    predicted_peaks = model.predict(X_validation_total, verbose=2)
-    predicted_peaks = np.vstack((np.zeros((LSTM_window_left, 1)), predicted_peaks, np.zeros((LSTM_window_right, 1))))
-    y_validation_corrected = np.concatenate((np.zeros((LSTM_window_left, 1)), y_validation.reshape(-1, 1),  np.zeros((LSTM_window_right, 1))))
+    predicted_gait_phases = model.predict(X_validation_total, verbose=2)
+    predicted_gait_phases = np.vstack((np.zeros((LSTM_window_left, 1)), predicted_gait_phases, np.zeros((LSTM_window_right+1, 1))))
+    y_validation_corrected = np.concatenate((np.zeros((LSTM_window_left, 1)), y_validation.reshape(-1, 1),  np.zeros((LSTM_window_right+1, 1))))
     time_end = datetime.now()
     print(f"Prediction finished at: {time_end.strftime('%Y-%m-%d, %H:%M:%S')}")
     time_duration = time_end - time_start
@@ -64,6 +64,7 @@ with strategy.scope():
     print(f"Evaluation finished at: {time_end.strftime('%Y-%m-%d, %H:%M:%S')}")
     time_duration = time_end - time_start
     print(f"Duration: {time_duration}")
+    print(f"Evaluation results: \tAccuracy: {score[1]:0.4f}, Loss: {score[0]:0.4f}")
 
 # In[] Visualising the results
 plt.clf()
@@ -71,32 +72,32 @@ plt.plot(validation_set_X[:, [0]], label = "gyrMag", linewidth=1, linestyle="sol
 plt.plot(validation_set_X[:, [1]], label = "freeAccMag", linewidth=1, linestyle="solid", marker=".")
 plt.plot(validation_set_X[:, [2]], label = "rotMatMag", linewidth=1, linestyle="solid", marker=".")
 
-plt.plot(y_validation_corrected[:], label = "Real peaks", linewidth=3, color="magenta", linestyle="solid", marker="s")
-plt.plot(predicted_peaks, label = "Predicted Peaks", linewidth=3, color="red", linestyle="solid", marker="s")
+plt.plot(y_validation_corrected[:], label = f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
+plt.plot(predicted_gait_phases, label = f"Predicted (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
 
-plt.title(f"Peaks Prediction for {_gait_phase}")
+plt.title(f"{_gait_phase} phase prediction")
 plt.xlabel("Time Frame")
 plt.ylabel("Peaks / Amplitude / Probability%")
 plt.legend(loc="upper left")
 plt.show()
 
 # In[] Correcting the Results
-peaks, properties = find_peaks(predicted_peaks.flatten(),
+peaks, properties = find_peaks(predicted_gait_phases.flatten(),
                                height=(.1, None),
                                distance=100)
-signal_peaks = np.zeros(len(predicted_peaks))
+predicted_gait_phases_corrected = np.zeros(len(predicted_gait_phases))
 
-for index, val in enumerate(predicted_peaks):
+for index, val in enumerate(predicted_gait_phases):
     if val >= 0.05:   # set the minimum probability to equal or greater than 0.05
-        signal_peaks[index] = 1
+        predicted_gait_phases_corrected[index] = 1
 
-# In[] Correct the peakes
-for ii, ival in enumerate(signal_peaks):
+# In[] Correct the predicted gait phases
+for ii, ival in enumerate(predicted_gait_phases_corrected):
     if ival == 1:
-        signal_peaks[ii+1:ii+50] = 0
+        predicted_gait_phases_corrected[ii+1:ii+50] = 0
 
 _no_of_events = len(y_validation_corrected[y_validation_corrected == 1])
-_no_of_phases_predicted = len(signal_peaks[signal_peaks == 1])
+_no_of_phases_predicted = len(predicted_gait_phases_corrected[predicted_gait_phases_corrected == 1])
 
 print(f"No. of sample frames for validation dataset: {len(validation_set_X)}")
 print(f"{_gait_phase} labeled: {_no_of_events}")
@@ -108,10 +109,10 @@ plt.plot(validation_set_X[:, [0]], label = "gyrMag", linewidth=1, linestyle="sol
 plt.plot(validation_set_X[:, [1]], label = "freeAccMag", linewidth=1, linestyle="solid", marker=".")
 plt.plot(validation_set_X[:, [2]], label = "rotMatMag", linewidth=1, linestyle="solid", marker=".")
 
-plt.plot(2*y_validation_corrected[:], label = f"Real peaks {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
-plt.plot(signal_peaks, label = f"Predicted Peaks (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
+plt.plot(2*y_validation_corrected[:], label = f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
+plt.plot(predicted_gait_phases_corrected, label = f"Predicted (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
 
-plt.title(f"Peaks Prediction, {_no_of_phases_predicted} {_gait_phase}(s) detected!")
+plt.title(f"{_gait_phase} phase prediction, {_no_of_phases_predicted} {_gait_phase}(s) detected!")
 plt.xlabel("Time Frame")
 plt.ylabel("Peaks / Amplitude / Probability%")
 plt.legend(loc="upper left")
