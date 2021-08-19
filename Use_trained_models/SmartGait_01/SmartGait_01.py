@@ -96,11 +96,11 @@ for ii, ival in enumerate(signal_peaks):
         signal_peaks[ii+1:ii+50] = 0
 
 _no_of_events = len(y_validation_corrected[y_validation_corrected == 1])
-_no_of_events_predicted = len(signal_peaks[signal_peaks == 1])
+_no_of_phases_predicted = len(signal_peaks[signal_peaks == 1])
 
 print(f"No. of sample frames for validation dataset: {len(validation_set_X)}")
 print(f"{_gait_phase} labeled: {_no_of_events}")
-print(f"{_gait_phase} predicted: {_no_of_events_predicted}")
+print(f"{_gait_phase} predicted: {_no_of_phases_predicted}")
 
 # In[] Plot the final results
 plt.clf()
