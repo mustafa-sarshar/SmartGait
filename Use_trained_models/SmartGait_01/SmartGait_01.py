@@ -87,7 +87,7 @@ plt.plot(validation_set_X[:, [1]], label="freeAccMag", linewidth=1, linestyle="s
 plt.plot(validation_set_X[:, [2]], label="rotMatMag", linewidth=1, linestyle="solid", marker=".")
 
 plt.plot(y_validation_corrected, label=f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
-markerline, stemlines, baseline = plt.stem(x_timeline, predicted_gait_phases, "r", markerfmt="ro", label=f"Predicted (corrected) {_gait_phase}")
+markerline, stemlines, baseline = plt.stem(x_timeline, predicted_gait_phases, "r", markerfmt="ro", label=f"Predicted {_gait_phase}")
 plt.setp(stemlines, 'linewidth', 3), plt.setp(markerline, 'markersize', 3)
 
 plt.title(f"{_gait_phase} phase prediction")
@@ -123,9 +123,9 @@ plt.plot(validation_set_X[:, [1]], label="freeAccMag", linewidth=1, linestyle="s
 plt.plot(validation_set_X[:, [2]], label="rotMatMag", linewidth=1, linestyle="solid", marker=".")
 
 plt.plot(2*y_validation_corrected, label=f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
-plt.plot(predicted_gait_phases_corrected, label=f"Predicted (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
+plt.plot(predicted_gait_phases_corrected, label=f"Predicted {_gait_phase} (corrected)", linewidth=3, color="red", linestyle="solid", marker="s")
 
-plt.title(f"{_gait_phase} phase prediction, {_no_of_phases_predicted} {_gait_phase}(s) detected!")
+plt.title(f"{_gait_phase} Phase Prediction, {_no_of_phases_predicted} {_gait_phase}(s) detected!")
 plt.xlabel("Time Frame")
 plt.ylabel("Peaks / Amplitude / Probability%")
 plt.legend(loc="upper left")
