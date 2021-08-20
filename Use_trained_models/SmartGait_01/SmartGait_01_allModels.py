@@ -115,7 +115,7 @@ for mdl_index, mdl_obj in enumerate(_models_addresses):
     markerline, stemlines, baseline = plt.stem(x_timeline, predicted_gait_phases[mdl_index], _colors[mdl_index], markerfmt=f"{_colors[mdl_index]}o", label=f"Predicted {mdl_obj[0]}")
     plt.setp(stemlines, 'linewidth', 3), plt.setp(markerline, 'markersize', 3)
 
-plt.title(f"Gait phase prediction")
+plt.title("Gait phase prediction")
 plt.xlabel("Time Frame")
 plt.ylabel("Peaks / Amplitude / Probability%")
 plt.legend(loc="upper left")
