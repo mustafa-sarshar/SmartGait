@@ -18,7 +18,7 @@ from main.utils import preprocessing as preProc
 import logging
 tf.get_logger().setLevel(logging.ERROR)
 
-# In[] Initialize the primary variables
+# In[] Initialize the primary variables and checking Command Line Arguments
 if len(sys.argv) > 1:
     _gait_phase = sys.argv[1]
 else:
