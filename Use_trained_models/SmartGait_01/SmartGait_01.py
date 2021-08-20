@@ -1,5 +1,12 @@
 # In[] Import the libraries
-import pickle, tensorflow
+
+# disable all debugging logs for Tensorflow
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
+import sys
+import pickle
+import tensorflow as tf
 from tensorflow.keras import models
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,8 +14,16 @@ from datetime import datetime
 from scipy.signal import find_peaks
 from main.utils import preprocessing as preProc
 
+# disable all debugging logs for Tensorflow
+import logging
+tf.get_logger().setLevel(logging.ERROR)
+
 # In[] Initialize the primary variables
-_gait_phase = "MidSwing"   # change the value of _gait_phase variable to either FootOff or FootContact to load and run dataset and model, for FootOff or FootContact, respectively.
+if len(sys.argv) > 1:
+    _gait_phase = sys.argv[1]
+else:
+    print("No gait phase is given!!!")
+    exit(0)
 _dataset_address = f"main//datasets//{_gait_phase}//example_data.pkl"
 _model_address = f"main//models//{_gait_phase}//mobilenet"
 
@@ -20,8 +35,6 @@ with open(_dataset_address, "rb") as _data:
 # In[] Initialize the constants
 columns_X = [0, 1, 2]
 columns_y = [3]
-ncolumns_X = len(columns_X)
-ncolumns_y = len(columns_y)
 LSTM_window_left = 125
 LSTM_window_right = 125
 
@@ -34,21 +47,21 @@ higher_bound = len(validation_set_X)-LSTM_window_right
 X_validation_total, y_validation = preProc.dataset_vectorizing(validation_set_X, validation_set_y, LSTM_window_left, LSTM_window_right, higher_bound)
 
 # In[] Load the Model
-if tensorflow.config.list_physical_devices("GPU"):
-    strategy = tensorflow.distribute.MirroredStrategy() # set to MirroredStrategy
+if tf.config.list_physical_devices("GPU"):
+    strategy = tf.distribute.MirroredStrategy() # set to MirroredStrategy
     print("Strategy is set to MirroredStrategy")
 else:
-    strategy = tensorflow.distribute.get_strategy() # set to the default strategy
+    strategy = tf.distribute.get_strategy() # set to the default strategy
     print("Strategy is set to DefaultDistributionStrategy")
 
 with strategy.scope():
     model = models.load_model(_model_address)
-    model.summary()
+    model.summary()   # show the structure of the model
 
     ## Prediction
     time_start = datetime.now()
     print(f"Prediction startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
-    predicted_gait_phases = model.predict(X_validation_total, verbose=2)
+    predicted_gait_phases = model.predict(X_validation_total, verbose=1)
     predicted_gait_phases = np.vstack((np.zeros((LSTM_window_left, 1)), predicted_gait_phases, np.zeros((LSTM_window_right+1, 1))))
     y_validation_corrected = np.concatenate((np.zeros((LSTM_window_left, 1)), y_validation.reshape(-1, 1),  np.zeros((LSTM_window_right+1, 1))))
     time_end = datetime.now()
@@ -59,7 +72,7 @@ with strategy.scope():
     ## Evaluation
     time_start = datetime.now()
     print(f"Evaluation startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
-    score = model.evaluate(x=X_validation_total, y=y_validation, verbose=2)
+    score = model.evaluate(x=X_validation_total, y=y_validation, verbose=1)
     time_end = datetime.now()
     print(f"Evaluation finished at: {time_end.strftime('%Y-%m-%d, %H:%M:%S')}")
     time_duration = time_end - time_start
@@ -67,13 +80,15 @@ with strategy.scope():
     print(f"Evaluation results: \tAccuracy: {score[1]:0.4f}, Loss: {score[0]:0.4f}")
 
 # In[] Visualising the results
+x_timeline = list(range(len(validation_set_X[:, [0]])+1))
 plt.clf()
-plt.plot(validation_set_X[:, [0]], label = "gyrMag", linewidth=1, linestyle="solid", marker=".")
-plt.plot(validation_set_X[:, [1]], label = "freeAccMag", linewidth=1, linestyle="solid", marker=".")
-plt.plot(validation_set_X[:, [2]], label = "rotMatMag", linewidth=1, linestyle="solid", marker=".")
+plt.plot(validation_set_X[:, [0]], label="gyrMag", linewidth=1, linestyle="solid", marker=".")
+plt.plot(validation_set_X[:, [1]], label="freeAccMag", linewidth=1, linestyle="solid", marker=".")
+plt.plot(validation_set_X[:, [2]], label="rotMatMag", linewidth=1, linestyle="solid", marker=".")
 
-plt.plot(y_validation_corrected[:], label = f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
-plt.plot(predicted_gait_phases, label = f"Predicted (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
+plt.plot(y_validation_corrected, label=f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
+markerline, stemlines, baseline = plt.stem(x_timeline, predicted_gait_phases, "r", markerfmt="ro", label=f"Predicted (corrected) {_gait_phase}")
+plt.setp(stemlines, 'linewidth', 3), plt.setp(markerline, 'markersize', 3)
 
 plt.title(f"{_gait_phase} phase prediction")
 plt.xlabel("Time Frame")
@@ -82,9 +97,7 @@ plt.legend(loc="upper left")
 plt.show()
 
 # In[] Correcting the Results
-peaks, properties = find_peaks(predicted_gait_phases.flatten(),
-                               height=(.1, None),
-                               distance=100)
+peaks, properties = find_peaks(predicted_gait_phases.flatten(), height=(.1, None), distance=100)
 predicted_gait_phases_corrected = np.zeros(len(predicted_gait_phases))
 
 for index, val in enumerate(predicted_gait_phases):
@@ -105,12 +118,12 @@ print(f"{_gait_phase} predicted: {_no_of_phases_predicted}")
 
 # In[] Plot the final results
 plt.clf()
-plt.plot(validation_set_X[:, [0]], label = "gyrMag", linewidth=1, linestyle="solid", marker=".")
-plt.plot(validation_set_X[:, [1]], label = "freeAccMag", linewidth=1, linestyle="solid", marker=".")
-plt.plot(validation_set_X[:, [2]], label = "rotMatMag", linewidth=1, linestyle="solid", marker=".")
+plt.plot(validation_set_X[:, [0]], label="gyrMag", linewidth=1, linestyle="solid", marker=".")
+plt.plot(validation_set_X[:, [1]], label="freeAccMag", linewidth=1, linestyle="solid", marker=".")
+plt.plot(validation_set_X[:, [2]], label="rotMatMag", linewidth=1, linestyle="solid", marker=".")
 
-plt.plot(2*y_validation_corrected[:], label = f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
-plt.plot(predicted_gait_phases_corrected, label = f"Predicted (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
+plt.plot(2*y_validation_corrected, label=f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
+plt.plot(predicted_gait_phases_corrected, label=f"Predicted (corrected) {_gait_phase}", linewidth=3, color="red", linestyle="solid", marker="s")
 
 plt.title(f"{_gait_phase} phase prediction, {_no_of_phases_predicted} {_gait_phase}(s) detected!")
 plt.xlabel("Time Frame")
