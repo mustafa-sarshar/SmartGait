@@ -24,7 +24,7 @@ if len(sys.argv) > 1:
 else:
     print("No gait phase is given!!!")
     exit(0)
-_dataset_address = f"main//datasets//{_gait_phase}//example_data.pkl"
+_dataset_address = f"main//datasets//{_gait_phase}//db.pkl"
 _model_address = f"main//models//{_gait_phase}//mobilenet"
 
 # In[] Load the dataset
