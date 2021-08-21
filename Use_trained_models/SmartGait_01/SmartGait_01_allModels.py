@@ -153,7 +153,7 @@ plt.plot(validation_set_X[:, [2]], label = "rotMatMag", linewidth=1, linestyle="
 
 for mdl_index, mdl_obj in enumerate(_models_addresses):
     plt.plot(2*y_validation_corrected[mdl_index], label = f"Real {mdl_obj[0]}", linewidth=1, color=_colors[mdl_index], linestyle="solid", marker="s")
-    markerline, stemlines, baseline = plt.stem(x_timeline, predicted_gait_phases_corrected[mdl_index], _colors[mdl_index], markerfmt=f"{_colors[mdl_index]}o", label=f"Predicted {mdl_obj[0]} (corrected)")
+    markerline, stemlines, baseline = plt.stem(x_timeline, 1.5*predicted_gait_phases_corrected[mdl_index], _colors[mdl_index], markerfmt=f"{_colors[mdl_index]}o", label=f"Predicted {mdl_obj[0]} (corrected)")
     plt.setp(stemlines, 'linewidth', 3), plt.setp(markerline, 'markersize', 3)
 
 plt.title("Gait phase prediction")
