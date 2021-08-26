@@ -38,11 +38,11 @@ Data labeling for Test set:
        - MidSwing
 
 3.2) 03_DataLabeling_traindataset.py
-Data labeling for Train set:
-   *** Step phase labeling
-       - HeelStrike
-       - ToeOff
-       - MidSwing
+    Data labeling for Train set:
+    *** Step phase labeling
+        - HeelStrike
+        - ToeOff
+        - MidSwing
 
 4) 04_TrainAndTest.py
 Train and Test the model
