@@ -16,7 +16,7 @@ Sarshar, Mustafa, Sasanka Polturi, and Lutz Schega. 2021. "Gait Phase Estimation
 ### This directory contains the source codes to build the SmartGait_01 model from scratch.
 
 1) 01_DataExtraction_DatasetInitialization.py
-- Data extraction & dataset initialization
+- Data extraction & dataset initialization:
    - Data extraction & dataset initialization
    - Extract the sub dataset 
    - Extract necessary features
@@ -30,7 +30,7 @@ Sarshar, Mustafa, Sasanka Polturi, and Lutz Schega. 2021. "Gait Phase Estimation
    - Add new features to the dataset
    - Cut the dataset and reduce its size if necessary
 
-3)1) 03_DataLabeling_testdataset.py
+31) 03_DataLabeling_testdataset.py
 - Data labeling for Test set:
     - HeelStrike
     - ToeOff
@@ -43,7 +43,7 @@ Sarshar, Mustafa, Sasanka Polturi, and Lutz Schega. 2021. "Gait Phase Estimation
     - MidSwing
 
 4) 04_TrainAndTest.py
-- Train and Test the model
+- Train and Test the model:
     - Initialize the train and test datasets
     - Vectorize the train and test datasets
     - Define and compile the model
