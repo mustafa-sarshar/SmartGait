@@ -36,8 +36,8 @@ Sarshar, Mustafa, Sasanka Polturi, and Lutz Schega. 2021. "Gait Phase Estimation
     - ToeOff
     - MidSwing
 
-3_2) 03_DataLabeling_traindataset.py
--   Data labeling for Train set:
+32) 03_DataLabeling_traindataset.py
+- Data labeling for Train set:
     - HeelStrike
     - ToeOff
     - MidSwing
