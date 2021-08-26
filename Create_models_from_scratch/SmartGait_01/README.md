@@ -30,14 +30,14 @@ Data preprocessing:
    - Add new features to the dataset
    - Cut the dataset and reduce its size if necessary
 
-3-1) 03_DataLabeling_testdataset.py
+3.1) 03_DataLabeling_testdataset.py
 Data labeling for Test set:
    *** Step phase labeling
        - HeelStrike
        - ToeOff
        - MidSwing
 
-3-2) 03_DataLabeling_traindataset.py
+3.2) 03_DataLabeling_traindataset.py
 Data labeling for Train set:
    *** Step phase labeling
        - HeelStrike
