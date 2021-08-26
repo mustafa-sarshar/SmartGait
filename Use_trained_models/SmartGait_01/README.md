@@ -1,6 +1,6 @@
 # SmartGait_01
 ## The model has been described in the article below:
-### Title: [Gait Phase Estimation by Using LSTM in IMU-Based Gait Analysis — Proof of Concept](https://www.mdpi.com/1424-8220/21/17/5749){:target="_blank" rel="noopener"}
+### Title: [Gait Phase Estimation by Using LSTM in IMU-Based Gait Analysis — Proof of Concept](https://www.mdpi.com/1424-8220/21/17/5749){:target="\_blank"}
 
 ### Please cite this article if you want to you use or employ these models in your projects as follows:
 #### MDPI and ACS Style
