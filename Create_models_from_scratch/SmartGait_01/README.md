@@ -30,14 +30,14 @@ Sarshar, Mustafa, Sasanka Polturi, and Lutz Schega. 2021. "Gait Phase Estimation
         - Add new features to the dataset
         - Cut the dataset and reduce its size if necessary
 
-- 03_DataLabeling_testdataset.py
-    - Data labeling for Test set:
+- 03_1_DataLabeling_traindataset.py
+    - Data labeling for Train set:
         - HeelStrike
         - ToeOff
         - MidSwing
 
-- 03_DataLabeling_traindataset.py
-    - Data labeling for Train set:
+- 03_2_DataLabeling_testdataset.py
+    - Data labeling for Test set:
         - HeelStrike
         - ToeOff
         - MidSwing
