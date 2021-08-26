@@ -23,28 +23,28 @@ Sarshar, Mustafa, Sasanka Polturi, and Lutz Schega. 2021. "Gait Phase Estimation
         - Save it as pickle
 
 2) 02_Data_Preprocessing.py
-- Data preprocessing:
-   - Missing value imputation
-   - Remove the outliers
-   - Smooth and filter the data
-   - Add new features to the dataset
-   - Cut the dataset and reduce its size if necessary
+    - Data preprocessing:
+        - Missing value imputation
+        - Remove the outliers
+        - Smooth and filter the data
+        - Add new features to the dataset
+        - Cut the dataset and reduce its size if necessary
 
 31) 03_DataLabeling_testdataset.py
-- Data labeling for Test set:
-   - HeelStrike
-   - ToeOff
-   - MidSwing
+    - Data labeling for Test set:
+        - HeelStrike
+        - ToeOff
+        - MidSwing
 
 32) 03_DataLabeling_traindataset.py
-- Data labeling for Train set:
-   - HeelStrike
-   - ToeOff
-   - MidSwing
+    - Data labeling for Train set:
+        - HeelStrike
+        - ToeOff
+        - MidSwing
 
 4) 04_TrainAndTest.py
-- Train and Test the model:
-   - Initialize the train and test datasets
-   - Vectorize the train and test datasets
-   - Define and compile the model
-   - Fit the model
+    - Train and Test the model:
+        - Initialize the train and test datasets
+        - Vectorize the train and test datasets
+        - Define and compile the model
+        - Fit the model
