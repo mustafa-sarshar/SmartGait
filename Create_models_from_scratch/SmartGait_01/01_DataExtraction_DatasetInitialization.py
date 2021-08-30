@@ -35,6 +35,7 @@ for _code, _position in zip(sensor_codes, sensor_positions):
         
     ## Extract just necessary features
     _cols = ["FreeAcc_E", "FreeAcc_N", "FreeAcc_U", "Gyr_X", "Gyr_Y", "Gyr_Z", "Mat[1][1]"]
+    ### Please note that in some versions of MT Manager Software, the export parameters for FreeAcc_E, FreeAcc_N and FreeAcc_U are called FreeAcc_X, FreeAcc_Y, FreeAcc_Z, respectively.
     
     ## Note: The .csv file from MT Manager Software must include at least all of these features.
     for dfi, dfval in enumerate(dataset_sub):
