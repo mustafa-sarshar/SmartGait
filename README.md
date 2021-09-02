@@ -8,7 +8,7 @@ This repository consists of:
 2) "Design_models_from_scratch" directory, for those who would like to design these models on their own from scratch.
 
 Moreover, the project will grow itselft step-by-step, therefore more trained models will be presented in this repo in the future.
-At this moment, the first SmartGait model, "SmartGait_01" is already trained by using data from **only** two individuals, which is still not a completed trained model for production, however, it is a proof of our concept for using LSTM algorithm to estimate three main gait phases, Foot-off, Mid-swing, and Foot-contact.
+At this moment, the first SmartGait model, "SmartGait_01" is already trained by using data from **only** two individuals, which is still not a completed trained model for production, however, it is a proof of our concept for using LSTM algorithm to estimate three main gait phases, foot-off, mid-swing, and foot-contact.
 
 ### Install Python
 *) For this Repo the Python version 3.9.6 was used. Please download Python from: https://www.python.org/downloads/
