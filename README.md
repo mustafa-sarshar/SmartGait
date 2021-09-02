@@ -5,7 +5,7 @@ This project aims to pave the way for the development of IMU-based gait phase es
 
 This repository consists of:
 1) "Employ_trained_models" directory, please check Employ_trained_models directory if you want to use and test the trained models.
-2) "Create_models_from_scratch" directory, for those who would like to create these models on their own from scratch.
+2) "Design_models_from_scratch" directory, for those who would like to design these models on their own from scratch.
 
 Moreover, the project will grow itselft step-by-step, therefore more trained models will be presented in this repo in the future.
 At this moment, the first SmartGait model, "SmartGait_01" is already trained by using data from only two individuals, which is still not a completed trained model for production, however, it is a proof of our concept in using LSTM algorithm to estimate three main gait phases, MidSwing, FootOff and FootContact.

@@ -1,9 +1,9 @@
 """
 Data labeling:
    *** Step phase labeling
-       - HeelStrike
-       - ToeOff
-       - MidSwing
+       - Foot-off
+       - Mid-swing
+       - Foot-contact
 """
 # In[] Import the libraries
 import pickle
@@ -20,7 +20,7 @@ with open(dataset_address, "rb") as _data:
 
 # In[] Label the events Peak methods
 """
-Add the three label features for ToeOff, MidSwing and HeelStrike gait events manually.
+Add the three label features for FootOff, MidSwing and FootContact gait events manually.
 You may use the find_peaks function from scipy library if you wish.
 from scipy.signal import find_peaks
 
@@ -62,13 +62,13 @@ data_labeled[510] = 1   # if the MidSwing gait event takes place at frame 510
 # In[] Add the label feature to the dataset
 dataset_subs[sensor_id]["data"][sample_index][new_feature] = data_labeled.reshape(-1, 1)
 
-# In[] Extract the features for train dataset
+# In[] Extract the features for test dataset
 _feature_label = "MidSwing"
-train_features_list = list()
+test_features_list = list()
 labeling_features_list = list()
-train_features_list.append(["gyrMag_filter_gaussian", "freeAccMag_filter_gaussian"])
+test_features_list.append(["gyrMag_filter_gaussian", "freeAccMag_filter_gaussian"])
 labeling_features_list.append([f"gyrMag_filter_gaussian_{_feature_label}"])
-train_features_list.append(["gyrMag_filter_gaussian", "freeAccMag_filter_gaussian"])
+test_features_list.append(["gyrMag_filter_gaussian", "freeAccMag_filter_gaussian"])
 labeling_features_list.append([f"gyrMag_filter_gaussian_{_feature_label}"])
 features_X = list()
 features_y = list()
@@ -76,9 +76,9 @@ _subdata_index = 0
 _label_index = 3
 for _dbi, _dbval in enumerate(dataset_subs):
     if dataset_subs[_dbi]["position"] in sensor_positions:
-        print(f"Features from {dataset_subs[_dbi]['position']}_{_dbi}_{len(dataset_subs[_dbi]['data'])} added to the train dataset.")
+        print(f"Features from {dataset_subs[_dbi]['position']}_{_dbi}_{len(dataset_subs[_dbi]['data'])} added to the test dataset.")
         for _dfx, _dfval in enumerate(dataset_subs[_dbi]["data"]):
-            _X1 = _dfval.loc[:, train_features_list[_subdata_index]].values
+            _X1 = _dfval.loc[:, test_features_list[_subdata_index]].values
             _X2_1 = dataset_subs[0]["data"][_dfx].loc[:, ["Mat[1][1]_filter_gaussian"]].values
             _X2_2 = dataset_subs[1]["data"][_dfx].loc[:, ["Mat[1][1]_filter_gaussian"]].values
             _X2 = (_X2_1**2 + _X2_2**2)**0.5            
@@ -89,18 +89,18 @@ for _dbi, _dbval in enumerate(dataset_subs):
         _subdata_index += 1    
 
 # In[] Concatenate all the signals from both sensors and and scale the signal by MaxAbsScaler()
-#      to generate one single scaled train dataset
-train_dataset = np.concatenate((MaxAbsScaler().fit_transform(features_X[0]), features_y[0]), axis=1)
+#      to generate one single scaled test dataset
+test_dataset = np.concatenate((MaxAbsScaler().fit_transform(features_X[0]), features_y[0]), axis=1)
 for i in range(1, len(features_X)):
     tmp = np.concatenate((MaxAbsScaler().fit_transform(features_X[i]), features_y[i]), axis=1)
-    train_dataset = np.concatenate((train_dataset, tmp), axis=0)
+    test_dataset = np.concatenate((test_dataset, tmp), axis=0)
 
-data_labeled = train_dataset[:, _label_index]
+data_labeled = test_dataset[:, _label_index]
 
-# In[] save the sub dataset in folder train_dataset
-dataset_address = f"datasets//train_dataset//train_dataset_{_feature_label}.pkl"
+# In[] save the sub dataset in folder test_dataset
+dataset_address = f"datasets//test_dataset//test_dataset_{_feature_label}.pkl"
 with open(dataset_address, "wb") as _output:
-    pickle.dump(train_dataset, _output)
-print(f"Train dataset for {_feature_label} is generated.")
+    pickle.dump(test_dataset, _output)
+print(f"Test dataset for {_feature_label} is generated.")
 
 # In[] Finish
