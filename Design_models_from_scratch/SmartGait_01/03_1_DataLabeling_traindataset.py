@@ -1,9 +1,9 @@
 """
 Data labeling:
    *** Step phase labeling
-       - Foot-off
-       - Mid-swing
-       - Foot-contact
+       - FootOff
+       - MidSwing
+       - FootContact
 """
 # In[] Import the libraries
 import pickle
