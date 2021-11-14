@@ -1,5 +1,4 @@
 # In[] Import the libraries
-
 # disable all debugging logs for Tensorflow
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"

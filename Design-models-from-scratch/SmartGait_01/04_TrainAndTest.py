@@ -62,7 +62,7 @@ with strategy.scope():
     
     model = lstm_model.initialize_lstm_model(X_train_total)
     model = lstm_model.compile_lstm_model(model)
-    monitor = lstm_model.set_monitor_lstm_model(model)
+    monitor = lstm_model.set_monitor_lstm_model()
     
     model.summary()
 
@@ -76,7 +76,7 @@ with strategy.scope():
 
 
 # In[] Create a new sub-directory based on the name of the labeld feature in the models directory
-try:    
+try:
     os.mkdir(path=f"models//{_feature_label}")
 except ValueError:
     print(f"An exception occurred: {ValueError}")
@@ -84,17 +84,16 @@ except:
     print("Unexpected error:", sys.exc_info()[0])
 
 # In[] Save the Model in the folder models
-    
 ## Save the model in only one file
 model.save(f"models//{_feature_label}//singleFileModel.h5")
-    
+
 ## Save the history
 with open(f"models//{_feature_label}//history.pkl", "wb") as output:
     pickle.dump(model_history.history, output)
-    
+
 ## Save the weights only
 model.save_weights(filepath=f"models//{_feature_label}//save_weights//weights") 
-    
+
 ## Save the model completely
 tensorflow.saved_model.save(model, f"models//{_feature_label}//mobilenet//")
 

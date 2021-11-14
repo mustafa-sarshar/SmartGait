@@ -43,7 +43,7 @@ for _position in (sensor_positions):
             dataset=dataset_sub,
             cols=_col_list,
             threshold=160+1)
-    
+
     _col_list = ["Gyr_X", "Gyr_Y", "Gyr_Z"]
     preProc.dataset_outliers_removing(
             dataset=dataset_sub,
@@ -58,10 +58,8 @@ for _position in (sensor_positions):
 
     ## Add new features to the dataset
     preProc.dataset_add_new_features(dataset=dataset_sub, filter_name="filter_gaussian")
-        
     dataset_subs.append({"position":_position, "data": dataset_sub})
     print(f"Data from sensor '{_position}' added to dataset_subs.")
-    
     print(f"The file saved to: {address}")
 
 # In[] Cut the dataset

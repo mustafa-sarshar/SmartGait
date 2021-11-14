@@ -1,5 +1,4 @@
 # In[] Import the libraries
-
 # disable all debugging logs for Tensorflow
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -64,18 +63,18 @@ else:
     print("Strategy is set to DefaultDistributionStrategy")
 
 with strategy.scope():
-    
+
     predicted_gait_phases = []
     y_validation_corrected = []
     scores = []
 
     for mdl_index, mdl_obj in enumerate(_models_addresses):
-        
+
         # Load each model
         print(f"Loading {mdl_obj[0]} Regression Model from:\t{mdl_obj[1]}")
         model = models.load_model(mdl_obj[1])
         model.summary() # show the structure of the model
-    
+
         ## Prediction
         time_start = datetime.now()
         print(f"{mdl_obj[0]} Prediction startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
@@ -87,7 +86,7 @@ with strategy.scope():
         print(f"{mdl_obj[0]} prediction finished at: {time_end.strftime('%Y-%m-%d, %H:%M:%S')}")
         time_duration = time_end - time_start
         print(f"Duration: {time_duration}")
-    
+
         ## Evaluation
         time_start = datetime.now()
         print(f"{mdl_obj[0]} evaluation startet at: {time_start.strftime('%Y-%m-%d, %H:%M:%S')}")
@@ -99,7 +98,6 @@ with strategy.scope():
         print(f"Duration: {time_duration}")
         print(f"Evaluation results for {mdl_obj[0]} Model: \tAccuracy: {scores[mdl_index][1]:0.4f}, Loss: {scores[mdl_index][0]:0.4f}")
         print("\n\n")
-
 
 # In[] Visualising the results
 _colors = "rbg"
@@ -141,7 +139,6 @@ for mdl_index, mdl_obj in enumerate(_models_addresses):
     _no_of_events = len(y_validation_corrected[mdl_index][y_validation_corrected[mdl_index] == 1])
     _no_of_phases_predicted = len(predicted_gait_phases_corrected[mdl_index][predicted_gait_phases_corrected[mdl_index] == 1])
 
-    
     print(f"{mdl_obj[0]} labeled: {_no_of_events}")
     print(f"{mdl_obj[0]} predicted: {_no_of_phases_predicted}\n")
 
