@@ -12,12 +12,10 @@ from utils import lstm_model
 
 # In[] Initialize the variables
 _feature_label = "MidSwing"
-columns_X = [0, 1, 2]
-columns_y = [3]
-ncolumns_X = len(columns_X)
-ncolumns_y = len(columns_y)
-LSTM_window_left = 125
-LSTM_window_right = 125
+COLS_X = [0, 1, 2]
+COLS_Y = [3]
+LSTM_WINDOW_LEFT = 125
+LSTM_WINDOW_RIGHT = 125
 
 # In[] Import the dataset (Train set)
 address = f"datasets//train_dataset//train_dataset_{_feature_label}.pkl"
@@ -30,21 +28,21 @@ with open(address, "rb") as _data:
     db_test = pickle.load(_data)
     
 # In[] Initialize the train and test datasets
-train_set_X = db_train[:, columns_X]
-train_set_y = db_train[:, columns_y]
-test_set_X = db_test[:, columns_X]
-test_set_y = db_test[:, columns_y]
+train_set_X = db_train[:, COLS_X]
+train_set_y = db_train[:, COLS_Y]
+test_set_X = db_test[:, COLS_X]
+test_set_y = db_test[:, COLS_Y]
 
 # In[] Train Set
-higher_bound = len(train_set_X)-LSTM_window_right
-X_train_total, y_train = preProc.dataset_vectorizing(train_set_X, train_set_y, LSTM_window_left, LSTM_window_right, higher_bound)
+higher_bound = len(train_set_X)-LSTM_WINDOW_RIGHT
+X_train_total, y_train = preProc.dataset_vectorizing(train_set_X, train_set_y, LSTM_WINDOW_LEFT, LSTM_WINDOW_RIGHT, higher_bound)
 
 # Clean up the memory from unnecessary variables
 del db_train, train_set_X, train_set_y
 
 # In[] Test Set
-higher_bound = len(test_set_X)-LSTM_window_right
-X_test_total, y_test = preProc.dataset_vectorizing(test_set_X, test_set_y, LSTM_window_left, LSTM_window_right, higher_bound)
+higher_bound = len(test_set_X)-LSTM_WINDOW_RIGHT
+X_test_total, y_test = preProc.dataset_vectorizing(test_set_X, test_set_y, LSTM_WINDOW_LEFT, LSTM_WINDOW_RIGHT, higher_bound)
 
 # Clean up the memory from unnecessary variables
 del db_test, test_set_X, test_set_y
