@@ -6,9 +6,17 @@ Train and Test the model
     - Fit the model
 """
 # In[] Import the libraries
+# disable all debugging logs for Tensorflow
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 import pickle, time, os, tensorflow, sys
-from utils import preprocessing as preProc 
-from utils import lstm_model
+from utils import preprocessing as preProc
+from utils import model_design
+
+# disable all debugging logs for Tensorflow
+import logging
+tensorflow.get_logger().setLevel(logging.ERROR)
 
 # In[] Initialize the variables
 _feature_label = "MidSwing"
