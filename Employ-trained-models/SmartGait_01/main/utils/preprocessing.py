@@ -2,7 +2,7 @@ def dataset_initializing(
         address,
         file_list,
         skiprows=12):
-    
+
     import pandas as pd
 
     data_all = []
@@ -18,7 +18,7 @@ def dataset_initializing(
         df["filename"] = fnval
         dic = {"sensor":sensor_name, "participant":participant_name, "testcode":test_code, "filename":fnval, "dataframe":df}
         data_all.append(dic)
-    
+
     return data_all
 
 def dataset_initializing_sub(
@@ -43,10 +43,7 @@ def dataset_missingvalue_imputation(
     if imputation_method == "interpolation":
         for dfi, dfval in enumerate(dataset):
             for coli, colval in enumerate(dfval):
-                dfval[colval].interpolate(method=interpolation_method, inplace=True)        
-        return
-    
-    return
+                dfval[colval].interpolate(method=interpolation_method, inplace=True)
 
 def _dataset_outliers_removing(
         data,
