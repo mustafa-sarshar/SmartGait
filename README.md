@@ -25,4 +25,4 @@ At this moment, the first SmartGait model, "SmartGait_01" is already trained by 
 
 ### Related Articles/Publications:
 *) Gait Phase Estimation by Using LSTM in IMU-Based Gait Analysis—Proof of Concept
-**) Link: https://www.mdpi.com/1424-8220/21/17/5749
+* Link: https://www.mdpi.com/1424-8220/21/17/5749
