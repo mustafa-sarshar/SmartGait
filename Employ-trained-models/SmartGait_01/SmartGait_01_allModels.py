@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 from scipy.signal import find_peaks
-from main.utils import preprocessing as preProc
+from main.utils.preprocessing import dataset_vectorizing
 
 # disable all debugging logs for Tensorflow
 import logging
@@ -48,9 +48,9 @@ validation_set_y.append(db_all[:, columns_y_FC])
 # In[] Validation Sets
 higher_bound = len(validation_set_X)-LSTM_window_right
 y_validation = []
-X_validation_total, _fo  = preProc.dataset_vectorizing(validation_set_X, validation_set_y[0], LSTM_window_left, LSTM_window_right, higher_bound)
-_,                  _mids = preProc.dataset_vectorizing(validation_set_X, validation_set_y[1], LSTM_window_left, LSTM_window_right, higher_bound)
-_,                  _fc = preProc.dataset_vectorizing(validation_set_X, validation_set_y[2], LSTM_window_left, LSTM_window_right, higher_bound)
+X_validation_total, _fo  = dataset_vectorizing(validation_set_X, validation_set_y[0], LSTM_window_left, LSTM_window_right, higher_bound)
+_,                  _mids = dataset_vectorizing(validation_set_X, validation_set_y[1], LSTM_window_left, LSTM_window_right, higher_bound)
+_,                  _fc = dataset_vectorizing(validation_set_X, validation_set_y[2], LSTM_window_left, LSTM_window_right, higher_bound)
 y_validation.append(_fo), y_validation.append(_mids), y_validation.append(_fc)
 del _fo, _mids, _fc
 

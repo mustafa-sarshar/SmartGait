@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 from scipy.signal import find_peaks
-from main.utils import preprocessing as preProc
+from main.utils.preprocessing import dataset_vectorizing
 
 # disable all debugging logs for Tensorflow
 import logging
@@ -43,7 +43,7 @@ validation_set_y = db_validation[:, columns_y]
 
 # In[] Validation Set
 higher_bound = len(validation_set_X)-LSTM_window_right
-X_validation_total, y_validation = preProc.dataset_vectorizing(validation_set_X, validation_set_y, LSTM_window_left, LSTM_window_right, higher_bound)
+X_validation_total, y_validation = dataset_vectorizing(validation_set_X, validation_set_y, LSTM_window_left, LSTM_window_right, higher_bound)
 
 # In[] Load the Model
 if tf.config.list_physical_devices("GPU"):

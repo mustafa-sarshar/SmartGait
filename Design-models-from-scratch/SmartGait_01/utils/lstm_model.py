@@ -1,6 +1,6 @@
 def initialize_lstm_model(
         X_train_total
-    ):
+):
     from tensorflow.keras.models import Sequential
     from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
     from tensorflow.keras.layers import LSTM

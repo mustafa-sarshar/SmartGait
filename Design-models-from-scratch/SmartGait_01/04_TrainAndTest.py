@@ -12,7 +12,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import pickle, time, os, tensorflow, sys
 from utils import preprocessing as preProc
-from utils import model_design
+from utils import lstm_model
 
 # disable all debugging logs for Tensorflow
 import logging
