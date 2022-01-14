@@ -22,3 +22,7 @@ At this moment, the first SmartGait model, "SmartGait_01" is already trained by 
 
 #### Note: To exit the virtual environment later:
 -) deactivate  # don't exit until you're done with your project
+
+### Related Articles/Publications:
+1) Gait Phase Estimation by Using LSTM in IMU-Based Gait Analysis—Proof of Concept
+* Link: https://www.mdpi.com/1424-8220/21/17/5749
