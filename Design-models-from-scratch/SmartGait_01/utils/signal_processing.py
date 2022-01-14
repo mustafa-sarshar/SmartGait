@@ -10,7 +10,7 @@ def signal_filtering_gaussian(
 ):
     from scipy.ndimage import gaussian_filter1d
 
-    filteredSignal = gaussian_filter1d(
+    signal_filt = gaussian_filter1d(
         input=data.flatten(),
         sigma=sigma,
         axis=axis,
@@ -21,4 +21,4 @@ def signal_filtering_gaussian(
         truncate=truncate
     )
 
-    return filteredSignal
+    return signal_filt
