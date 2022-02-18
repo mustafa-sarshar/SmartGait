@@ -1,3 +1,8 @@
+"""
+This module contains all neccessary functions to create the LSTM-Model and apply the prediction
+to find the Gait Events from the given input data.
+Based on paper: https://www.mdpi.com/1424-8220/21/17/5749
+"""
 def initialize_lstm_model(
         X_train_total
 ):
@@ -16,7 +21,10 @@ def initialize_lstm_model(
     _INPUT_LAYER_RECURRENT_ACTIVATION_METHOD = "sigmoid"
     _OUTPUT_LAYER_ACTIVATION_METHOD = "sigmoid"
 
-    model = Sequential()
+    model = Sequential() # Define the model to be a Sequential one
+
+    # The structure of the mode is introduced in paper: https://www.mdpi.com/1424-8220/21/17/5749
+    # Add the Input layer: Layer 1
 
     # Add the Input layer: Layer 1
     model.add(LSTM(units=_NUM_OF_UNITS_INPUT_LAYER, activation=_INPUT_LAYER_ACTIVATION_METHOD, recurrent_activation=_INPUT_LAYER_RECURRENT_ACTIVATION_METHOD, return_sequences=True, input_shape=(X_train_total.shape[1], X_train_total.shape[2])))
@@ -54,8 +62,8 @@ def compile_lstm_model(
         loss_function="binary_crossentropy",
         metrics=["accuracy", "mean_absolute_error", "mean_squared_error", "mean_absolute_percentage_error", "mean_squared_logarithmic_error"]
 ):
+    # This function set the optimization parameters to compile the LSTM-Model
     from tensorflow.keras.optimizers import Adam
-
     if optimization_option == "adam": optimization_option = Adam(lr=1e-3, decay=1e-5)
     model.compile(optimizer=optimization_option, loss=loss_function, metrics=metrics)
 
@@ -66,8 +74,8 @@ def set_monitor_lstm_model(
     monitor="loss",
     patience=20
 ):
+    # This function sets the monitors for the LSTM-Model
     from tensorflow.keras.callbacks import EarlyStopping
-
     monitor = EarlyStopping(
         monitor=monitor,
         patience=patience,
@@ -77,19 +85,10 @@ def set_monitor_lstm_model(
 )
     return monitor
 
-def fit_lstm_model(
-        model,
-        X_train_total,
-        y_train,
-        X_test_total,
-        y_test,
-        monitor,
-        epochs=100
-):
+def fit_lstm_model(model, X_train_total, y_train, X_test_total, y_test, monitor, epochs=100):
+    # This function fits the lastm model by using the given input data
     history = model.fit(
-        X_train_total, y_train,
-        validation_data=(X_test_total, y_test),
-        callbacks=[monitor],
-        epochs=epochs
-)
+        X_train_total, y_train, validation_data=(X_test_total, y_test),
+        callbacks=[monitor], epochs=epochs
+    )    
     return history
