@@ -3,9 +3,7 @@ This module contains all neccessary functions to create the LSTM-Model and apply
 to find the Gait Events from the given input data.
 Based on paper: https://www.mdpi.com/1424-8220/21/17/5749
 """
-def initialize_lstm_model(
-        X_train_total
-):
+def initialize_lstm_model(X_train_total):
     from tensorflow.keras.models import Sequential
     from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
     from tensorflow.keras.layers import LSTM
@@ -70,11 +68,7 @@ def compile_lstm_model(
 
     return model
 
-def set_monitor_lstm_model(
-    verbose=1,
-    monitor="loss",
-    patience=20
-):
+def set_monitor_lstm_model(verbose=1, monitor="loss", patience=20):
     # This function sets the monitors for the LSTM-Model
     from tensorflow.keras.callbacks import EarlyStopping
     monitor = EarlyStopping(
