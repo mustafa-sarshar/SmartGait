@@ -87,7 +87,7 @@ plt.plot(validation_set_X[:, [2]], label="rotMatMag", linewidth=1, linestyle="so
 
 plt.plot(y_validation_corrected, label=f"Real {_gait_phase}", linewidth=3, color="magenta", linestyle="solid", marker="s")
 markerline, stemlines, baseline = plt.stem(x_timeline, predicted_gait_phases, "r", markerfmt="ro", label=f"Predicted {_gait_phase}")
-plt.setp(stemlines, 'linewidth', 3), plt.setp(markerline, 'markersize', 3)
+plt.setp(stemlines, "linewidth", 3), plt.setp(markerline, "markersize", 3)
 
 plt.title(f"{_gait_phase} phase prediction")
 plt.xlabel("Time Frame")
