@@ -1,11 +1,4 @@
-def dataset_vectorizing(
-        data_set_X,
-        data_set_y,
-        LSTM_window_left,
-        LSTM_window_right,
-        higher_bound,
-):
-
+def dataset_vectorizing(data_set_X, data_set_y, LSTM_window_left, LSTM_window_right, higher_bound):
     import numpy as np
 
     X_data0 = []
