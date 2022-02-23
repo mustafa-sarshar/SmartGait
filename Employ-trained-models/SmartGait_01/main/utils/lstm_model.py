@@ -1,5 +1,4 @@
 def initialize_lstm_model(X_train_total):
-
     from tensorflow.keras.models import Sequential
     from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
     from tensorflow.keras.layers import LSTM
@@ -48,7 +47,6 @@ def initialize_lstm_model(X_train_total):
     return model
 
 def compile_lstm_model(model):
-
     from tensorflow.keras.optimizers import Adam
     from tensorflow.keras import metrics
 
@@ -60,7 +58,6 @@ def compile_lstm_model(model):
     return model
 
 def set_monitor_lstm_model():
-
     from tensorflow.keras.callbacks import EarlyStopping
 
     _VERBOSE = 1
@@ -70,22 +67,11 @@ def set_monitor_lstm_model():
         monitor=_MONITOR, patience=_PATIENCE, verbose=_VERBOSE, mode="auto", 
         restore_best_weights=True
     )
-
     return monitor
 
-def fit_lstm_model(
-        model,
-        X_train_total,
-        y_train,
-        X_test_total,
-        y_test,
-        monitor,
-        epochs=100
-):
-
+def fit_lstm_model(model, X_train_total, y_train, X_test_total, y_test, monitor, epochs=100):
     history = model.fit(
         X_train_total, y_train, validation_data=(X_test_total, y_test),
         callbacks=[monitor], epochs=epochs
 )
-
     return history
