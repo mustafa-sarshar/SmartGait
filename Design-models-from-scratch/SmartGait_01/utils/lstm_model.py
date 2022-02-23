@@ -10,6 +10,7 @@ def initialize_lstm_model(
     from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
     from tensorflow.keras.layers import LSTM
 
+    # Set the hyperparameters of the LSTM Model
     _NUM_OF_UNITS_INPUT_LAYER = 30
     _NUM_OF_UNITS_HIDDEN_LAYER_1 = 60
     _NUM_OF_UNITS_HIDDEN_LAYER_2 = 60

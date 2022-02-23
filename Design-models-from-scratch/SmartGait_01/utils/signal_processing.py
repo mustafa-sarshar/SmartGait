@@ -1,3 +1,7 @@
+"""
+This module contains signal filtering methods required for data preprocessing.
+"""
+
 def signal_filtering_gaussian(
     data,
     sigma,
